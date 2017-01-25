@@ -8,11 +8,11 @@ typedef struct Folha_Pagamento{
 	float sal;	//salario
 	int hed;	//horas extras diurnas
 	int hen;	//horas extras noturnas
-	int num_dep;	//número de dependentes
+	int num_dep;	//nÃºmero de dependentes
 	int fal;	//faltas em horas
 	float descont;	//descontos eventuais
-	float ref;	//gastos com refeições feitas na empresa
-	float vale;	//vales retirados durante o mês
+	float ref;	//gastos com refeiÃ§Ãµes feitas na empresa
+	float vale;	//vales retirados durante o mÃªs
 }pg;
 
 void Saida(int emissoes, pg pg[100]){
@@ -36,7 +36,7 @@ void Saida(int emissoes, pg pg[100]){
 				fprintf(arq, "----------------------------\n");
 				fprintf(arq, "Nome: %s\n",strupr(pg[i].nome));	//exibir o nome do funcinario em caixa alta
 	
-				fprintf(arq, "Cargo: ANALISTA DE SEGURANÇA DA INFORMAÇÃO\n");	//cargo
+				fprintf(arq, "Cargo: ANALISTA DE SEGURANÃ‡A DA INFORMAÃ‡ÃƒO\n");	//cargo
 	
 				fprintf(arq, "Salario: R$%.2f\n\n", pg[i].sal);	//salario
 	
@@ -60,17 +60,7 @@ void Saida(int emissoes, pg pg[100]){
 				fprintf(arq, "\n\n\tDESCONTOS EFETUADOS\n");
 				fprintf(arq, "---------------------------\n");
 	
-	//Instituto Nacional do Seguro Social
-	//Atenção: O valor máximo do INSS do segurado empregado é R$ 513,01 
-	/*
-		Para os empresarios também esta disponivel uma tabela 
-		que regularmenta as taxas de renda conforme categorias
-		
-		* Empresario - 11%
-		* Autonomos(PF) - 20%
-		* Autonomos(PJ) - 11%
-		* Individuais e Facultativos - 11%
-	*/
+	
 				float inss;
 				if(inss <= 1556.94){
 					inss = 0.08 * (pg[i].sal);
@@ -138,101 +128,11 @@ void Saida(int emissoes, pg pg[100]){
 			fclose(arq);
 }
 
-/*void Saida(int emissoes, pg pg[100]){	//funcao para exibicao da folha de pagamento
-	
-			system("color 17"); 
-		system("cls");  
-	
-		int i;
-	for(i=0; i<emissoes; i++)
-	{
-		printf("\tDADOS DO FUNCIONARIO\n");
-		printf("-----------------------------\n");
-		printf("%s\n",strupr(pg[i].nome));	//exibir o nome do funcinario em caixa alta
-	
-	printf("DIRETOR DE SEGURANCA DA INFORMACAO\n");	//cargo
-	
-	printf("Salario: R$%.2f\n", pg[i].sal);	//salario
-	
-		//calculo das horas extras trabalhadas
-		//(hed * sal) + ((hen * 1.2 * sal) / 160)
-	float he = ((pg[i].hed)*(pg[i].sal)/160 + (pg[i].hen)*1.2*(pg[i].sal)/160);
-	printf("Hora(s) Extra(s): R$%.2f\n", he);
-	
-		//calculo do auxilio salario familia (abono)
-		//num_dep * 0.05 * salario minimo vigente
-	float sal_familia = ((pg[i].num_dep)*0.05*880);
-	printf("Salario Familia: R$%.2f\n", sal_familia);
-	
-		//salario bruto
-		//sal + he(hen + hed) + sal_familia(abono)
-	float sb = ((pg[i].sal) + he + sal_familia);
-	printf("Salario Bruto: R$%.2f\n", sb);
-	
-	//////////////////////////////////////////////////////////////////////////////////
-	
-	printf("\n\n\tDESCONTOS EFETUADOS\n");
-	printf("---------------------------\n");
-	
-		//Instituto Nacional do Seguro Social 
-		//0.08 * sal
-	float inss = 0.08 * (pg[i].sal); 
-	printf("INSS: R$%.2f\n", inss);
-	
-		//calculo de desconto sobre as faltas
-		//(fal * sal)/160
-	float faltas = ((pg[i].fal)*(pg[i].sal)/160);
-	printf("falta(s) = %.2f\n", faltas);
-	
-		//descontos sobre refeicoes
-	printf("Refeicoes: R$%.2f\n", pg[i].ref);
-
-		//descontos sobre vale	
-	printf("Vales: R$%.2f\n", pg[i].vale);
-	
-	printf("Descontos Enventuais: R$%.2f\n", pg[i].descont);
-	 
-	 	//calculo de imposto de renda (base de calculo mensal)
-	float irpf;
-	if(sb <= 1787.77){
-		printf("IRPF: Isento\n");
-	}else{
-		if((sb > 1787.77) && (sb <= 2679.29)){
-			irpf = 0.075 * sb;
-			printf("IRPF: R$%.2f\n", irpf);
-		}else{
-			if((sb >= 2679.30) && (sb <= 3572.43)){
-				irpf = 0.15 * sb;
-				printf("IRPF: R$%.2f\n", irpf);
-			}else{
-				if((sb >= 3572.44) && (sb <= 4463.81)){
-					irpf = 0.225 * sb;
-					printf("IRPF: R$%.2f\n", irpf);
-				}else{
-					if(sb >= 4463.82){
-						irpf = 0.275 * sb;
-						printf("IRPF: R$%.2f\n", irpf);
-					}
-				}
-			}
-		}
-	}
-		
-		//calculos de descontos totais
-		//faltas + descontos + refeicao + vale
-	float desconto_total = faltas + (pg[i].descont) + (pg[i].ref) + (pg[i].vale);
-	
-		//calculo de salario liquido
-		//salario_bruto - desconto_total
-	float salario_liquido = sb - desconto_total;
-	printf("\n\nSalario liquido: R$%.2f\n", salario_liquido);
-	}
-}*/
 
 void Entrada(int emissoes, pg pg[100]){	//funcao para o preenchimento dos dados de funcionarios
 	
-	//Deseja-se fazer a emissão da folha de pagamento de uma empresa. 
-	//Para cada um dos n funcionários da empresa são dadas as seguintes informações:
+	//Deseja-se fazer a emissÃ£o da folha de pagamento de uma empresa. 
+	//Para cada um dos n funcionÃ¡rios da empresa sÃ£o dadas as seguintes informaÃ§Ãµes:
 	
 		system("color 17");  
 	
